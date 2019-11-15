@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Events\Dispatcher;
+namespace Biscofil\LaravelRouteSummary;
+
 use Illuminate\Support\ServiceProvider;
 
 class RouteSummaryProvider extends ServiceProvider
