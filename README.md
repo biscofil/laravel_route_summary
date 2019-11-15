@@ -9,11 +9,15 @@ Create a graphical summary of all the Laravel Routes of your project
 
 ## Installation
 
-```composer install biscofil/laravel_route_summary```
+```sh
+composer require biscofil/laravel-route-summary
+```
 
 ## Usage
 
-``` php artisan route:summary```
+```sh
+php artisan route:summary
+```
 
 ## Credits
 
@@ -29,8 +33,8 @@ license. Please see the [license file](license) for more information.
 [ico-travis]: https://api.travis-ci.org/biscofil/laravel_route_summary.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/12345678/shield
 
-[link-packagist]: https://packagist.org/packages/biscofil/laravel_route_summary
-[link-downloads]: https://packagist.org/packages/biscofil/laravel_route_summary
+[link-packagist]: https://packagist.org/packages/biscofil/laravel-route-summary
+[link-downloads]: https://packagist.org/packages/biscofil/laravel-route-summary
 [link-travis]: https://travis-ci.org/biscofil/laravel_route_summary
 [link-styleci]: https://styleci.io/repos/12345678
 [link-author]: https://github.com/biscofil
