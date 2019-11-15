@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Biscofil\LaravelRouteSummary\Tests;
 
 use Illuminate\Foundation\Application;

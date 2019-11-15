@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class RouteSummaryProvider extends ServiceProvider
 {
 
-    public function boot(\Illuminate\Routing\Router $router)
+    public function boot()
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
