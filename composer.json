@@ -1,0 +1,33 @@
+{
+  "name": "biscofil/laravel-route-summary",
+  "description": "Create Laravel route summary",
+  "license": "mit",
+  "authors": [
+    {
+      "name": "Filippo Bisconcin",
+      "email": "filippo.bisconcin@gmail.com",
+      "homepage": "http://biscofil.it"
+    }
+  ],
+  "homepage": "https://github.com/biscofil/LaravelRouteSummary",
+  "keywords": [
+    "Laravel",
+    "routes",
+    "summary"
+  ],
+  "require-dev": {
+    "orchestra/testbench": "3.8.*",
+    "phpunit/phpunit": "^7.0",
+    "php-coveralls/php-coveralls": "^2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Biscofil\\LaravelRouteSummary\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Biscofil\\LaravelRouteSummary\\Tests\\": "tests/"
+    }
+  }
+}
