@@ -9,8 +9,10 @@ class RouteSummaryProvider extends ServiceProvider
 
     public function boot(\Illuminate\Routing\Router $router)
     {
-        $this->commands([
-            \Biscofil\LaravelRouteSummary\Commands\GetRouteSummary::class,
-        ]);
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \Biscofil\LaravelRouteSummary\Commands\GetRouteSummary::class,
+            ]);
+        }
     }
 }
