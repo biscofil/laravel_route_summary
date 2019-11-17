@@ -2,6 +2,10 @@
 
 namespace Biscofil\LaravelRouteSummary\Commands;
 
+use Illuminate\Console\Command;
+use Illuminate\Routing\Route;
+use ReflectionParameter;
+
 class GetRouteSummary extends Command
 {
 
@@ -49,11 +53,11 @@ class GetRouteSummary extends Command
                 if (strpos($middleware, ':') !== false) {
                     //parameters
 
-                    $middlewareParts = preg_split('/\:/', $middleware);
+                    $middlewareParts = preg_split('/:/', $middleware);
 
                     $middlewareName = array_shift($middlewareParts);
 
-                    $params = preg_split('/\,/', $middlewareParts[0]);
+                    $params = preg_split('/,/', $middlewareParts[0]);
 
                     return [
                         'middleware' => $middlewareName,
@@ -64,7 +68,7 @@ class GetRouteSummary extends Command
                 }
             }, $middleware);
 
-            $controllerParts = preg_split('/\@/', $route->getAction()['controller']);
+            $controllerParts = preg_split('/@/', $route->getAction()['controller']);
 
             $controllerName = $controllerParts[0];
             $controllerMethod = $controllerParts[1];
@@ -87,11 +91,13 @@ class GetRouteSummary extends Command
             ];
         }, $routes);
 
-        File::put(
+        dd($out);
+
+        /*File::put(
             'routes.html',
             view('resources.views.routes')
                 ->with(["routes" => $out])
                 ->render()
-        );
+        );*/
     }
 }
