@@ -37,9 +37,43 @@ class GetRouteSummary extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @throws \Throwable
      */
     public function handle()
+    {
+        $routes = $this->getRoutes();
+
+        $baseFolder = base_path('route_summary');
+
+        $htmlFilePath = $baseFolder . '/routes.html';
+        $jsonFilePath = $baseFolder . '/routes.json';
+
+        if (!file_exists($baseFolder)) {
+            mkdir($baseFolder);
+        } else {
+            if (file_exists($htmlFilePath)) {
+                unlink($htmlFilePath);
+            }
+            if (file_exists($jsonFilePath)) {
+                unlink($jsonFilePath);
+            }
+        }
+
+        file_put_contents($jsonFilePath, json_encode($routes, JSON_PRETTY_PRINT));
+
+        File::put(
+            $htmlFilePath,
+            view('route-summary::index')
+                ->render()
+        );
+
+        $this->info("Html file saved to " . $htmlFilePath);
+    }
+
+    /**
+     * Returns an array containing data of all routes
+     */
+    public function getRoutes()
     {
 
         $app = app();
@@ -74,7 +108,6 @@ class GetRouteSummary extends Command
             $controllerName = $controllerParts[0];
             $controllerMethod = $controllerParts[1];
 
-
             $parameters = array_merge(array_map(function ($parameterName) use ($controllerMethod, $controllerName) {
                 $p = new ReflectionParameter([$controllerName, $controllerMethod], $parameterName);
                 return [
@@ -82,11 +115,12 @@ class GetRouteSummary extends Command
                 ];
             }, $route->parameterNames()));
 
+            // ############ METHODS
 
             $httpMethods = $route->methods();
 
+            //remove HEAD
             if (($key = array_search('HEAD', $httpMethods)) !== FALSE) {
-                //remove HEAD
                 unset($httpMethods[$key]);
             }
 
@@ -100,16 +134,6 @@ class GetRouteSummary extends Command
             ];
         }, $routes);
 
-        if (!file_exists('route_summary')) {
-            mkdir('route_summary');
-        }
-
-        file_put_contents('route_summary/routes.json', json_encode($routes, JSON_PRETTY_PRINT));
-
-        File::put(
-            'route_summary/routes.html',
-            view('route-summary::index')
-                ->render()
-        );
+        return $out;
     }
 }
