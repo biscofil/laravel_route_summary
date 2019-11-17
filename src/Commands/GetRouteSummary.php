@@ -4,6 +4,7 @@ namespace Biscofil\LaravelRouteSummary\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\File;
 use ReflectionParameter;
 
 class GetRouteSummary extends Command
@@ -91,13 +92,11 @@ class GetRouteSummary extends Command
             ];
         }, $routes);
 
-        dd($out);
-
-        /*File::put(
+        File::put(
             'routes.html',
-            view('resources.views.routes')
+            view('route-summary::index')
                 ->with(["routes" => $out])
                 ->render()
-        );*/
+        );
     }
 }
