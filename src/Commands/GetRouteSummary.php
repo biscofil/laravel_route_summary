@@ -87,6 +87,11 @@ class GetRouteSummary extends Command
             ];
         }, $routes);
 
-        dd($out);
+        File::put(
+            'routes.html',
+            view('resources.views.routes')
+                ->with(["routes" => $out])
+                ->render()
+        );
     }
 }

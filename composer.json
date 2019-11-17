@@ -29,5 +29,12 @@
     "psr-4": {
       "Biscofil\\LaravelRouteSummary\\Tests\\": "tests/"
     }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Biscofil\\LaravelRouteSummary\\RouteSummaryProvider"
+      ]
+    }
   }
 }

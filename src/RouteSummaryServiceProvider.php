@@ -2,6 +2,7 @@
 
 namespace Biscofil\LaravelRouteSummary;
 
+use Biscofil\LaravelRouteSummary\Commands\GetRouteSummary;
 use Illuminate\Support\ServiceProvider;
 
 class RouteSummaryProvider extends ServiceProvider
@@ -11,7 +12,7 @@ class RouteSummaryProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \Biscofil\LaravelRouteSummary\Commands\GetRouteSummary::class,
+               GetRouteSummary::class,
             ]);
         }
     }
