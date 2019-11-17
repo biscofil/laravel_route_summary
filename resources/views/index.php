@@ -61,6 +61,7 @@
             <th>Uri</th>
             <th>Methods</th>
             <th>Controllers</th>
+            <th>Function</th>
         </tr>
     </thead>
 
@@ -78,7 +79,11 @@
             </td>
 
             <td>
-                {{route.action.controller}}
+                {{route.controller}}
+            </td>
+
+            <td>
+                {{route.controller_method}}
             </td>
         </tr>
     </tbody>
