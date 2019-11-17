@@ -54,7 +54,7 @@
             },
 
             template: `
-<table class="table">
+<table class="table table-condensed">
 
     <thead>
         <tr>
@@ -62,6 +62,7 @@
             <th>Methods</th>
             <th>Controllers</th>
             <th>Function</th>
+            <th>Middleware</th>
         </tr>
     </thead>
 
@@ -84,6 +85,18 @@
 
             <td>
                 {{route.controller_method}}
+            </td>
+
+            <td>
+                <ul>
+                    <li v-for="middleware in route.middleware">
+                        <span v-if="!middleware.hasOwnProperty('params')">{{ middleware}}</span>
+                        <span v-else>
+                            <b>{{middleware.middleware}}</b>
+                            (<span v-for="parameter in middleware.params">{{parameter}},</span>)
+                        </span>
+                    </li>
+                </ul>
             </td>
         </tr>
     </tbody>
