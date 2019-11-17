@@ -82,12 +82,20 @@ class GetRouteSummary extends Command
                 ];
             }, $route->parameterNames()));
 
+
+            $httpMethods = $route->methods();
+
+            if (($key = array_search('HEAD', $httpMethods)) !== FALSE) {
+                //remove HEAD
+                unset($httpMethods[$key]);
+            }
+
             return [
                 'uri' => $route->uri,
                 'controller' => $controllerName,
                 'controller_method' => $controllerMethod,
                 'parameters' => $parameters, //$route->getCompiled()->getPathVariables(),
-                'methods' => $route->methods(),
+                'methods' => $httpMethods,
                 'middleware' => $middleware
             ];
         }, $routes);
