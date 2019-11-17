@@ -100,10 +100,15 @@ class GetRouteSummary extends Command
             ];
         }, $routes);
 
+        if (file_exists('route_summary')) {
+            mkdir('route_summary');
+        }
+
+        file_put_contents('route_summary/routes.json', json_encode($routes, JSON_PRETTY_PRINT));
+
         File::put(
-            'routes.html',
+            'route_summary/routes.html',
             view('route-summary::index')
-                ->with(["routes" => $out])
                 ->render()
         );
     }
