@@ -100,7 +100,7 @@ class GetRouteSummary extends Command
             ];
         }, $routes);
 
-        if (file_exists('route_summary')) {
+        if (!file_exists('route_summary')) {
             mkdir('route_summary');
         }
 

@@ -43,7 +43,7 @@
 
             mounted() {
                 let self = this;
-                axios.get('./index.json')
+                axios.get('./routes.json')
                     .then(function (response) {
                         self.routes = response.data;
                     })
