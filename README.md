@@ -10,7 +10,7 @@ Create a graphical summary of all the Laravel Routes of your project
 ## Installation
 
 ```sh
-composer require biscofil/laravel-route-summary
+composer require --dev biscofil/laravel-route-summary
 ```
 
 ## Usage
