@@ -111,12 +111,18 @@ class GetRouteSummary extends Command
                 $controllerName = $controllerParts[0];
                 $controllerMethod = $controllerParts[1];
 
-                $parameters = array_merge(array_map(function ($parameterName) use ($controllerMethod, $controllerName) {
+                // ######## Parameters
+
+                $parameters = array_map(function ($parameterName) use ($controllerMethod, $controllerName) {
                     $p = new ReflectionParameter([$controllerName, $controllerMethod], $parameterName);
                     return [
-                        $parameterName => $p->getType()
+                        $parameterName => strval($p->getType())
                     ];
-                }, $route->parameterNames()));
+                }, $route->parameterNames());
+
+                if (count($parameters) > 0) {
+                    $parameters = array_merge(...$parameters);
+                }
 
                 // ############ METHODS
 

@@ -63,6 +63,7 @@
             <th>Methods</th>
             <th>Controllers</th>
             <th>Function</th>
+            <th>Parameters</th>
             <th>Middleware</th>
         </tr>
     </thead>
@@ -90,6 +91,16 @@
 
             <td>
                 {{route.controller_method}}
+            </td>
+
+            <td>
+                <ul>
+                    <li v-for="parameter_type,parameter_name in route.parameters">
+                            {{parameter_type}}
+                            <b>{{parameter_name}}</b>
+                        </span>
+                    </li>
+                </ul>
             </td>
 
             <td>
