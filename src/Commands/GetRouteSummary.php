@@ -81,57 +81,72 @@ class GetRouteSummary extends Command
 
         $out = array_map(function (Route $route) {
 
-            //middleware
-            $middleware = $route->gatherMiddleware();
-            $middleware = array_map(function ($middleware) {
+            try {
 
-                if (strpos($middleware, ':') !== false) {
-                    //parameters
 
-                    $middlewareParts = preg_split('/:/', $middleware);
+                //middleware
+                $middleware = $route->gatherMiddleware();
+                $middleware = array_map(function ($middleware) {
 
-                    $middlewareName = array_shift($middlewareParts);
+                    if (strpos($middleware, ':') !== false) {
+                        //parameters
 
-                    $params = preg_split('/,/', $middlewareParts[0]);
+                        $middlewareParts = preg_split('/:/', $middleware);
 
+                        $middlewareName = array_shift($middlewareParts);
+
+                        $params = preg_split('/,/', $middlewareParts[0]);
+
+                        return [
+                            'middleware' => $middlewareName,
+                            'params' => $params
+                        ];
+                    } else {
+                        return $middleware;
+                    }
+                }, $middleware);
+
+                $controllerParts = preg_split('/@/', $route->getAction()['controller']);
+
+                $controllerName = $controllerParts[0];
+                $controllerMethod = $controllerParts[1];
+
+                $parameters = array_merge(array_map(function ($parameterName) use ($controllerMethod, $controllerName) {
+                    $p = new ReflectionParameter([$controllerName, $controllerMethod], $parameterName);
                     return [
-                        'middleware' => $middlewareName,
-                        'params' => $params
+                        $parameterName => $p->getType()
                     ];
-                } else {
-                    return $middleware;
+                }, $route->parameterNames()));
+
+                // ############ METHODS
+
+                $httpMethods = $route->methods();
+
+                //remove HEAD
+                if (($key = array_search('HEAD', $httpMethods)) !== FALSE) {
+                    unset($httpMethods[$key]);
                 }
-            }, $middleware);
 
-            $controllerParts = preg_split('/@/', $route->getAction()['controller']);
-
-            $controllerName = $controllerParts[0];
-            $controllerMethod = $controllerParts[1];
-
-            $parameters = array_merge(array_map(function ($parameterName) use ($controllerMethod, $controllerName) {
-                $p = new ReflectionParameter([$controllerName, $controllerMethod], $parameterName);
                 return [
-                    $parameterName => $p->getType()
+                    'uri' => $route->uri,
+                    'name' => $route->getName(),
+                    'controller' => $controllerName,
+                    'controller_method' => $controllerMethod,
+                    'parameters' => $parameters, //$route->getCompiled()->getPathVariables(),
+                    'methods' => $httpMethods,
+                    'middleware' => $middleware
                 ];
-            }, $route->parameterNames()));
 
-            // ############ METHODS
 
-            $httpMethods = $route->methods();
+            } catch (\Exception $exception) {
 
-            //remove HEAD
-            if (($key = array_search('HEAD', $httpMethods)) !== FALSE) {
-                unset($httpMethods[$key]);
+                $this->error($exception->getMessage());
+
+                dd($route->uri);
+
+                return null;
             }
 
-            return [
-                'uri' => $route->uri,
-                'controller' => $controllerName,
-                'controller_method' => $controllerMethod,
-                'parameters' => $parameters, //$route->getCompiled()->getPathVariables(),
-                'methods' => $httpMethods,
-                'middleware' => $middleware
-            ];
         }, $routes);
 
         return $out;
