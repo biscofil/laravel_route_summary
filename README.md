@@ -5,9 +5,44 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Coverage Status](https://coveralls.io/repos/github/biscofil/laravel_route_summary/badge.svg)](https://coveralls.io/github/biscofil/laravel_route_summary?branch=master)
 
-Create a graphical summary of all the Laravel Routes of your project
+Create an HTML graphical summary of all the routes of your Laravel project. 
+The routes are exported to a json file that is read by a html page.
 
 ![Image description](screenshot.png)
+
+The json file has all the routes represented in the following format:
+
+```json
+[
+    {
+        "uri": "\/",
+        "name": "homepage",
+        "controller": "App\\Http\\Controllers\\HomeController",
+        "controller_method": "index",
+        "parameters": [],
+        "methods": [
+            "GET"
+        ],
+        "middleware": [
+            "web"
+        ]
+    },
+    {
+        "uri": "new",
+        "name": "new_foo",
+        "controller": "App\\Http\\Controllers\\Auth\\RegisterController",
+        "controller_method": "index",
+        "parameters": [],
+        "methods": [
+            "GET"
+        ],
+        "middleware": [
+            "web",
+            "guest"
+        ]
+    }
+]
+```
 
 ## Installation
 
