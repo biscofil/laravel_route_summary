@@ -59,6 +59,7 @@
     <thead>
         <tr>
             <th>Uri</th>
+            <th>Name</th>
             <th>Methods</th>
             <th>Controllers</th>
             <th>Function</th>
@@ -71,6 +72,10 @@
 
             <td>
                 {{route.uri}}
+            </td>
+
+            <td>
+                {{route.name}}
             </td>
 
             <td>
