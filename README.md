@@ -7,6 +7,8 @@
 
 Create a graphical summary of all the Laravel Routes of your project
 
+![Image description](screenshot.png)
+
 ## Installation
 
 ```sh
