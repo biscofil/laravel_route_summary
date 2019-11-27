@@ -6,10 +6,10 @@
 [![Coverage Status](https://coveralls.io/repos/github/biscofil/laravel_route_summary/badge.svg)](https://coveralls.io/github/biscofil/laravel_route_summary?branch=master)
 
 Create an HTML graphical summary of all the routes of your Laravel project. 
-The routes are exported to a json file that is read by a html page.
 
 ![Image description](screenshot.png)
 
+The routes are exported to a json file that is read by a html page.
 The json file has all the routes represented in the following format:
 
 ```json
