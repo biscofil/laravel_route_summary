@@ -1,9 +1,7 @@
 # Laravel Route Summary
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
-[![Travis][ico-travis]][link-travis]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![Coverage Status](https://coveralls.io/repos/github/biscofil/laravel_route_summary/badge.svg)](https://coveralls.io/github/biscofil/laravel_route_summary?branch=master)
 
 Create an HTML graphical summary of all the routes of your Laravel project. 
 
