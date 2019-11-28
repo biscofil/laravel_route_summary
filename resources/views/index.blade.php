@@ -41,16 +41,8 @@
         new Vue({
             el: '#app',
 
-            mounted() {
-                let self = this;
-                axios.get('./routes.json')
-                    .then(function (response) {
-                        self.routes = response.data;
-                    })
-            },
-
             data: {
-                routes: [],
+                routes: @json($routes, JSON_PRETTY_PRINT),
             },
 
             template: `
@@ -72,32 +64,32 @@
         <tr v-for="route in routes">
 
             <td>
-                {{route.uri}}
+                @{{route.uri}}
             </td>
 
             <td>
-                {{route.name}}
+                @{{route.name}}
             </td>
 
             <td>
                 <div v-for="method in route.methods" :class="['badge', 'badge-' + method]">
-                    {{method}}
+                    @{{method}}
                 </div>
             </td>
 
             <td>
-                {{route.controller}}
+                @{{route.controller}}
             </td>
 
             <td>
-                {{route.controller_method}}
+                @{{route.controller_method}}
             </td>
 
             <td>
                 <ul>
                     <li v-for="parameter_type,parameter_name in route.parameters">
-                            {{parameter_type}}
-                            <b>{{parameter_name}}</b>
+                            @{{parameter_type}}
+                            <b>@{{parameter_name}}</b>
                         </span>
                     </li>
                 </ul>
@@ -106,10 +98,10 @@
             <td>
                 <ul>
                     <li v-for="middleware in route.middleware">
-                        <span v-if="!middleware.hasOwnProperty('params')">{{ middleware}}</span>
+                        <span v-if="!middleware.hasOwnProperty('params')">@{{ middleware}}</span>
                         <span v-else>
-                            <b>{{middleware.middleware}}</b>
-                            (<span v-for="parameter in middleware.params">{{parameter}},</span>)
+                            <b>@{{middleware.middleware}}</b>
+                            (<span v-for="parameter in middleware.params">@{{parameter}},</span>)
                         </span>
                     </li>
                 </ul>
@@ -146,9 +138,7 @@
         background-color: #510bc4;
     }
 
-
 </style>
-
 
 </body>
 

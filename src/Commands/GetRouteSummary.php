@@ -61,12 +61,11 @@ class GetRouteSummary extends Command
 
         file_put_contents($jsonFilePath, json_encode($routes, JSON_PRETTY_PRINT));
 
-        File::put(
-            $htmlFilePath,
-            view('route-summary::index')
-                ->render()
-        );
+        $content = view('route-summary::index', ['routes' => $routes]);
+        $content = $content->render();
+        file_put_contents($htmlFilePath, $content);
 
+        $this->info("Json file saved to " . $jsonFilePath);
         $this->info("Html file saved to " . $htmlFilePath);
     }
 
