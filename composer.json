@@ -6,7 +6,7 @@
     {
       "name": "Filippo Bisconcin",
       "email": "filippo.bisconcin@gmail.com",
-      "homepage": "http://biscofil.it"
+      "homepage": "https://biscofil.it"
     }
   ],
   "homepage": "https://github.com/biscofil/LaravelRouteSummary",
@@ -15,6 +15,12 @@
     "routes",
     "summary"
   ],
+  "require" : {
+    "illuminate/routing": "^5.7|^6.0|^7.0",
+    "illuminate/support": "^5.7|^6.0|^7.0",
+    "illuminate/console": "^5.7|^6.0|^7.0",
+    "ext-json": "*"
+  },
   "require-dev": {
     "orchestra/testbench": "3.8.*",
     "phpunit/phpunit": "^7.0",
@@ -33,7 +39,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Biscofil\\LaravelRouteSummary\\RouteSummaryProvider"
+        "Biscofil\\LaravelRouteSummary\\RouteSummaryServiceProvider"
       ]
     }
   }
