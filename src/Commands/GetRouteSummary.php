@@ -4,11 +4,13 @@ namespace Biscofil\LaravelRouteSummary\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Routing\Route;
-use Illuminate\Support\Facades\File;
 use ReflectionParameter;
 
 class GetRouteSummary extends Command
 {
+
+    const GetRouteSummarySuccess = 0;
+    const GetRouteSummaryFailure = 1;
 
     /**
      * The name and signature of the console command.
@@ -36,49 +38,59 @@ class GetRouteSummary extends Command
 
     /**
      * Execute the console command.
-     *
-     * @throws \Throwable
      */
     public function handle()
     {
-        $routes = $this->getRoutes();
+        try {
 
-        $baseFolder = base_path('route_summary');
+            $routes = $this->getRoutes();
 
-        $htmlFilePath = $baseFolder . '/routes.html';
-        $jsonFilePath = $baseFolder . '/routes.json';
+            $baseFolder = base_path('route_summary');
 
-        if (!file_exists($baseFolder)) {
-            mkdir($baseFolder);
-        } else {
-            if (file_exists($htmlFilePath)) {
-                unlink($htmlFilePath);
+            $htmlFilePath = $baseFolder . '/routes.html';
+            $jsonFilePath = $baseFolder . '/routes.json';
+
+            if (!file_exists($baseFolder)) {
+                mkdir($baseFolder);
+            } else {
+                if (file_exists($htmlFilePath)) {
+                    unlink($htmlFilePath);
+                }
+                if (file_exists($jsonFilePath)) {
+                    unlink($jsonFilePath);
+                }
             }
-            if (file_exists($jsonFilePath)) {
-                unlink($jsonFilePath);
-            }
+
+            file_put_contents($jsonFilePath, json_encode($routes, JSON_PRETTY_PRINT));
+
+            $content = view('route-summary::index', ['routes' => $routes]);
+            $content = $content->render();
+            file_put_contents($htmlFilePath, $content);
+
+            $this->info("Json file saved to " . $jsonFilePath);
+            $this->info("Html file saved to " . $htmlFilePath);
+
+            return self::GetRouteSummarySuccess;
+
+        } catch (\Exception $exception) {
+
+            $this->error($exception->getMessage());
+
         }
 
-        file_put_contents($jsonFilePath, json_encode($routes, JSON_PRETTY_PRINT));
-
-        $content = view('route-summary::index', ['routes' => $routes]);
-        $content = $content->render();
-        file_put_contents($htmlFilePath, $content);
-
-        $this->info("Json file saved to " . $jsonFilePath);
-        $this->info("Html file saved to " . $htmlFilePath);
+        return self::GetRouteSummaryFailure;
     }
 
     /**
      * Returns an array containing data of all routes
      */
-    public function getRoutes()
+    public function getRoutes() : array
     {
 
         $app = app();
         $routes = $app->routes->getRoutes();
 
-        $out = array_map(function (Route $route) {
+        return array_map(function (Route $route) {
 
             try {
 
@@ -100,6 +112,7 @@ class GetRouteSummary extends Command
                             'middleware' => $middlewareName,
                             'params' => $params
                         ];
+
                     } else {
                         return $middleware;
                     }
@@ -115,7 +128,7 @@ class GetRouteSummary extends Command
                 $parameters = array_map(function ($parameterName) use ($controllerMethod, $controllerName) {
                     $p = new ReflectionParameter([$controllerName, $controllerMethod], $parameterName);
                     return [
-                        $parameterName => strval($p->getType())
+                        $parameterName => $p->getType()->getName()
                     ];
                 }, $route->parameterNames());
 
@@ -143,7 +156,7 @@ class GetRouteSummary extends Command
                 ];
 
 
-            } catch (\Exception $exception) {
+            } catch (\InvalidArgumentException $exception) {
 
                 $this->error($exception->getMessage());
 
@@ -153,7 +166,5 @@ class GetRouteSummary extends Command
             }
 
         }, $routes);
-
-        return $out;
     }
 }
