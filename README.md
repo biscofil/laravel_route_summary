@@ -56,7 +56,6 @@ php artisan route:summary
 ## Credits
 
 - [Filippo Bisconcin][link-author]
-- [All Contributors][link-contributors]
 
 ## License
 
