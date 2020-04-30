@@ -84,7 +84,7 @@ class GetRouteSummary extends Command
     /**
      * Returns an array containing data of all routes
      */
-    public function getRoutes() : array
+    public function getRoutes(): array
     {
 
         $app = app();
@@ -127,9 +127,13 @@ class GetRouteSummary extends Command
 
                 $parameters = array_map(function ($parameterName) use ($controllerMethod, $controllerName) {
                     $p = new ReflectionParameter([$controllerName, $controllerMethod], $parameterName);
-                    return [
-                        $parameterName => $p->getType()->getName()
-                    ];
+
+                    if (is_null($p->getType())) {
+                        return [$parameterName => 'UNKNOWN'];
+                    } else {
+                        return [$parameterName => $p->getType()->getName()];
+                    }
+
                 }, $route->parameterNames());
 
                 if (count($parameters) > 0) {
