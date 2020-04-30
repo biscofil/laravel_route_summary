@@ -60,7 +60,7 @@ php artisan route:summary
 
 ## License
 
-license. Please see the [license file](license) for more information.
+license. Please see the [license file](LICENSE) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/biscofil/laravel_route_summary.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/biscofil/laravel_route_summary.svg?style=flat-square
