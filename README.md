@@ -7,8 +7,7 @@ Create an HTML graphical summary of all the routes of your Laravel project.
 
 ![Image description](screenshot.png)
 
-The routes are exported to a json file that is read by a html page.
-The json file has all the routes represented in the following format:
+The routes are exported in both Html/Json files where they are represented in the following format:
 
 ```json
 [
