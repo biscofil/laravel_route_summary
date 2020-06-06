@@ -1,7 +1,11 @@
 # Laravel Route Summary
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Total Downloads][ico-downloads]][link-downloads]
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/biscofil/laravel-route-summary.svg?style=flat-square)][link-packagist]
+
+[![Total Downloads](https://img.shields.io/packagist/dt/biscofil/laravel-route-summary.svg?style=flat-square)][link-downloads]
+
+[![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+
 
 Create an HTML graphical summary of all the routes of your Laravel project. 
 
@@ -56,14 +60,11 @@ php artisan route:summary
 ## Credits
 
 - [Filippo Bisconcin][link-author]
-- [All Contributors][link-contributors]
 
 ## License
 
-license. Please see the [license file](license) for more information.
+license. Please see the [license file](LICENSE) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/biscofil/laravel_route_summary.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/biscofil/laravel_route_summary.svg?style=flat-square
 [ico-travis]: https://api.travis-ci.org/biscofil/laravel_route_summary.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/12345678/shield
 
