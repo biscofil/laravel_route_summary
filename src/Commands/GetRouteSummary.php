@@ -92,6 +92,8 @@ class GetRouteSummary extends Command
 
         return array_map(function (Route $route) {
 
+            $this->info($route->uri);
+
             try {
 
 
