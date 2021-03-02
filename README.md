@@ -7,7 +7,7 @@
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
 
-Create an HTML graphical summary of all the routes of your Laravel project. 
+Create an HTML graphical summary of all the routes of your Laravel project. The package also checks for the binding type of each method's argument, returning an error if the parameter name specified in the route definition does not match the one in the contoller.
 
 ![Image description](screenshot.png)
 
